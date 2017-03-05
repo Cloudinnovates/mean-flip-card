@@ -36,6 +36,7 @@ Rules:
 		8. Player will automatically lose if they run out of time per turn
 
 Ideas for Future Changes:
+
 	1. Time per turn will consists of both a player's first and second turns (right now a player gets time for each individual turn)
 	2. Running out of time per turn will only make a user lose a remaining miss and proceed to next player if playing multiplayer (currently causes the user to lose the game)
 	3. If playing multiplayer, player continues their turn if they complete a match. This should alleviate instances where a player might be behind 1-2 matches during the final moves of the game but have no chance to win (currently turn is switched after every set of moves)
@@ -45,17 +46,21 @@ Known Issues - Work In Progress:
 	The game table does not display in the center of the UI on mobile devices
 
 ##Run Locally
-Install dependencies
+Install dependencies:
+
 	npm install
 
-Compile the Angular 2 typescript files & move the needed static files to /dist/ directory
+Compile the Angular 2 typescript files & move the needed static files to /dist/ directory:
+
 	npm run postinstall
 
 Run the app (Runs Nodemon): 
+
 	npm run dev
 	navigate to http://localhost:3000
 
-If you only want to run the application for UI purposes (Socket.IO will not run)
+If you only want to run the application for UI purposes (Socket.IO will not run):
+
 	ng serve
 
 ##Using Heroku
@@ -63,16 +68,20 @@ Use the official heroku.com documentation at https://devcenter.heroku.com/articl
 
 1. Install & Signup for Heroku (no credit card required).
 2. Login:
+
 	heroku login (you will need to enter credentials)
 
 Create heroku app:
+
 	cd to application root
 	heroku create
 
 GIT deploy of app: 
+
 	git push heroku master
 
 Open app: 
+
 	heroku open
 
 
