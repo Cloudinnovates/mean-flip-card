@@ -7,6 +7,7 @@ This work is licensed with the MIT license.
 A MEAN (MongoDB, ExpressJs, Angular 2, Node.Js) stack implementation of a memory card flip game
 
 Some other technologies that will be used:
+
 	Bootstrap
 	Socket.IO
 	Heroku
@@ -69,7 +70,7 @@ Use the official heroku.com documentation at https://devcenter.heroku.com/articl
 1. Install & Signup for Heroku (no credit card required).
 2. Login:
 
-	heroku login (you will need to enter credentials)
+		heroku login (you will need to enter credentials)
 
 Create heroku app:
 
