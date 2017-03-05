@@ -1,0 +1,11 @@
+<div *ngIf="!isGameJoined">
+  <h1>Welcome {{player.username}}</h1>
+  <h2>Matchmaking in Progress</h2>
+  <p>{{waitingText}}</p>
+  <p>Total users in lobby {{lobbySize}}</p>
+  <button type="button" class="btn btn-primary" (click)="goBack()">Go Back</button>
+</div>
+
+<div *ngIf="isGameJoined">
+  <multi-game-board [difficulty]="difficulty" [room]="gameRoom" [player]="player" [quitCallback]="goBack"></multi-game-board>
+</div>

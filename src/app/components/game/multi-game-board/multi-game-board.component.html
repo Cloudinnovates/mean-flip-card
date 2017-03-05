@@ -1,0 +1,102 @@
+<div class="container" style="margin: 0 auto; max-width: 500px;">
+  <div class="list-group">
+        <div class="list-group-item row">
+          <span class="badge">{{difficulty}}</span>
+          Difficulty
+        </div>
+        <div class="list-group-item row">
+          <span class="badge">:{{remainingTime}}</span>
+          Time Remaining
+        </div>
+        <div class="row">
+         <div class="list-group-item col-xs-6 col-md-6">
+           <span class="badge player-one-badge">{{room.player1}}</span>
+           Player 1
+         </div>
+         <div class="list-group-item col-xs-6 col-md-6">
+           <span class="badge player-two-badge">{{room.player2}}</span>
+           Player 2
+         </div>
+        </div>
+        <div class="row">
+          <div class="list-group-item col-xs-6 col-md-6">
+            <span class="badge player-one-badge">{{playerOneRemainingMisses}}</span>
+            Misses Left
+          </div>
+          <div class="list-group-item col-xs-6 col-md-6">
+            <span class="badge player-two-badge">{{playerTwoRemainingMisses}}</span>
+            Misses Left
+          </div>
+        </div>
+        <div class="row">
+          <div class="list-group-item col-xs-6 col-md-6">
+            <span class="badge player-one-badge">{{playerOneScore}}</span>
+            Score
+          </div>
+          <div class="list-group-item col-xs-6 col-md-6">
+            <span class="badge player-two-badge">{{playerTwoScore}}</span>
+            Score
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal" style="display: block;" *ngIf="isCountingDown">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Setting Up Game</h4>
+      </div>
+      <div class="modal-body">
+        <p>Game starting in {{gameCountdown}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 0 auto; max-width: 500px;" class="text-center">
+  <button type="button" class="btn btn-lg btn-primary" (click)="requestRestart()" 
+    *ngIf="isGameStarted || isGameOver" [disabled]="isGameStarted">Play Again</button>
+  <button type="button" class="btn btn-lg btn-default" (click)="quit()">Quit</button>
+</div>
+<div style="margin: 0 auto; max-width: 500px;" class="text-center" *ngIf="!isGameOver">
+  <h2>{{playerTurn}}'s Turn</h2>
+</div>
+<br />
+<div class="alert alert-dismissible alert-success text-center" style="margin: 0 auto; max-width: 500px;" *ngIf="isWinner">
+  <strong>YOU WIN</strong>
+</div>
+
+<div class="alert alert-dismissible alert-danger text-center" style="margin: 0 auto; max-width: 500px;" *ngIf="isLoser">
+  <strong>LOSER</strong>
+</div>
+
+<div class="alert alert-dismissible alert-info text-center" style="margin: 0 auto; max-width: 500px;" *ngIf="isPlayerQuit">
+  <strong>You opponent has quit the game... Quiting game...</strong>
+</div>
+
+<div class="alert alert-dismissible alert-info text-center" style="margin: 0 auto; max-width: 500px;" 
+*ngIf="restartWaitingText && !isPlayerQuit">
+  <strong>{{restartWaitingText}}</strong>
+</div>
+
+<div style="margin-top: 20px;">
+  <table class="table table-bordered" style="max-width: 300px;">
+    <tr *ngFor="let row of cards; let rowIndex = index;">
+      <td *ngFor="let col of row; let colIndex = index;">
+        <div class="flip-container">
+          <div id="card-flip" (click)="flipCard(col, rowIndex, colIndex)" [ngClass]="{'flipped': col.isFlipped}">
+            <div class="front">
+              <img style="width: 74px; height: 74px;" [src]="col.frontSrc" />
+            </div>
+            <div class="back">
+              <img style="width: 100%; height: 100%;" [src]="col.backSrc" 
+              [ngClass]="{'player-one-matched': col.isMatched && col.playerOneMatched, 
+              'player-two-matched': col.isMatched && !col.playerOneMatched}"/>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

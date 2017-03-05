@@ -1,0 +1,67 @@
+<div *ngIf="!isGameReady">
+  <div class="jumbotron text-center">
+    <h1>MEAN FlipCard</h1>
+    <p><i>Do you want to play a game?</i></p>
+    <p>Of course you do, that's why you're here... I guess</p>
+  </div>
+
+  <form class="form-horizontal" (ngSubmit)="playGame()">
+    <fieldset>
+      <legend>Game Settings</legend>
+      <div class="form-group">
+        <label for="inputUsername" class="col-lg-4 control-label">Username</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="inputUsername" [(ngModel)]="player.username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-4 control-label">Game Type</label>
+        <div class="col-lg-6">
+          <div class="radio">
+            <label *ngFor="let key of gameTypeKeys">
+              <input type="radio" name="gameType" id="{{key}}" [value]="key" [checked]="game.type === GameType[key]" (change)="updateGameType(key)">
+              {{key}}
+              &nbsp;
+            </label>
+          </div>
+        </div>  
+      </div>
+      <div class="form-group">
+        <label class="col-lg-4 control-label">Difficulty</label>
+        <div class="col-lg-6">
+          <div class="radio">
+            <label *ngFor="let key of gameDifficultyKeys">
+              <input type="radio" name="gameDifficulty" id="{{key}}" [value]="key" [checked]="game.difficulty === GameDifficulty[key]" (change)="updateGameDifficulty(key)">
+              {{key}}
+              &nbsp;
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-6 col-lg-offset-4">
+          <button type="submit" class="btn btn-default" [disabled]="isBtnDisabled">Play Game</button>
+          <div style="margin-top: 8px;" *ngIf="errorText">
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" (click)="closeAlert()">&times;</button>
+              <strong>{{errorText}}</strong>
+          </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div *ngIf="isGameReady">
+  <game-board *ngIf="game.type === GameType.SinglePlayer" 
+  [difficulty]="GameDifficulty[game.difficulty]" 
+  [goBackCallback]="goBackCallback"
+  [player]="player">
+  
+  </game-board>
+  <game-lobby *ngIf="game.type === GameType.MultiPlayer"
+  [difficulty]="GameDifficulty[game.difficulty]"
+  [player]="player"
+  [goBackCallback]="goBackCallback"></game-lobby>
+</div>

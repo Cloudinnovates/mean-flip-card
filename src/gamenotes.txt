@@ -1,0 +1,6 @@
+Notes for setting up the game project
+
+//Game Difficulty Cards
+//Easy/Medium - 18 - 6x3
+//Hard - 30 6x5
+//Extreme - 42 6x7

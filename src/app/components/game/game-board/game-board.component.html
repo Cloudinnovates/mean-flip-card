@@ -1,0 +1,58 @@
+<div style="margin: 0 auto; max-width: 500px;">
+  <h2 class="text-center">
+    Welcome {{player.username}}
+  </h2>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="badge">{{difficulty}}</span>
+      Difficulty
+    </li>
+    <li class="list-group-item">
+      <span class="badge">:{{remainingTime}}</span>
+      Time Remaining
+    </li>
+    <li class="list-group-item">
+      <span class="badge">{{remainingMisses}}</span>
+      Misses Left
+    </li>
+    <li class="list-group-item">
+      <span class="badge">{{remainingMatches}}</span>
+      Remaining Matches
+    </li>
+  </ul>
+</div>
+
+<div style="margin: 0 auto; max-width: 500px;" class="text-center">
+  <button type="button" class="btn btn-lg btn-primary" (click)="startGame()" 
+    *ngIf="!isGameStarted && !isGameOver">Start</button>
+  <button type="button" class="btn btn-lg btn-primary" (click)="resetGame()" 
+    *ngIf="isGameStarted || isGameOver" [disabled]="isGameStarted">Play Again</button>
+  <button type="button" class="btn btn-lg btn-default" (click)="goBack()">Go Back</button>
+</div>
+<br />
+<div class="alert alert-dismissible alert-success text-center" style="margin: 0 auto; max-width: 500px;" *ngIf="isWinner">
+  <strong>YOU WIN</strong>
+</div>
+
+<div class="alert alert-dismissible alert-danger text-center" style="margin: 0 auto; max-width: 500px;" *ngIf="isLoser">
+  <strong>LOSER</strong>
+</div>
+
+<div style="margin-top: 20px;">
+  <table class="table table-bordered" style="max-width: 300px;">
+    <tr *ngFor="let row of cards; let rowIndex = index;">
+      <td *ngFor="let col of row; let colIndex = index;">
+        <div class="flip-container">
+          <div id="card-flip" (click)="flipCard(col, rowIndex, colIndex)" [ngClass]="{'flipped': col.isFlipped}">
+            <div class="front">
+              <img style="width: 74px; height: 74px;" [src]="col.frontSrc" />
+            </div>
+            <div class="back">
+              <img style="width: 100%; height: 100%;" [src]="col.backSrc" />
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
