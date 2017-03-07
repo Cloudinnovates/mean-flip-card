@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var utils = require('./utils');
 
 var port = process.env.PORT || 3000;
 
@@ -30,7 +31,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('setUsername', function(data) {
-        var existingUser = findValue(users, data.toLowerCase());
+        var existingUser = utils.findValue(users, data.toLowerCase());
         
         if (existingUser) {
             if (existingUser === socket.id) {
@@ -103,12 +104,3 @@ io.on('connection', function(socket) {
 server.listen(port, function() {
     console.log("App now running on port", port);
 });
-
-function findValue(object, value) {
-    for (var prop in object) {
-        if (object.hasOwnProperty(prop) && object[prop] === value) {
-            return prop;
-        }
-    }
-    return null;
-}
